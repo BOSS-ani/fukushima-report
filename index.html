@@ -52,31 +52,32 @@
         .toggle-icon.rotated {
             transform: rotate(180deg);
         }
-        /* Adjusted for HTML/CSS based course diagrams */
-        .course-diagram-placeholder {
+        /* HTML/CSS based course diagrams */
+        .course-diagram-box {
             width: 100%;
             max-width: 400px;
-            height: 150px; /* Adjusted height for text visibility */
+            height: 150px; /* Consistent height */
             margin: 1rem auto;
-            display: flex; /* Use flexbox for centering text */
+            display: flex;
+            flex-direction: column; /* Align text vertically */
             align-items: center;
             justify-content: center;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            font-size: 1.5rem; /* Larger font for diagram text */
+            font-size: 1.5rem; /* Larger font */
             font-weight: bold;
-            color: white; /* Default text color, overridden by specific backgrounds */
+            color: white; /* Default text color */
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             text-align: center;
         }
-        /* Specific colors for different course diagrams */
-        .turf-1200-bg { background-color: #A8DADC; color: #2C3E50; }
-        .turf-1800-bg { background-color: #DCC7A8; color: #58370B; }
-        .turf-2000-bg { background-color: #ADD8E6; color: #00008B; }
-        .turf-2600-bg { background-color: #B2E0B2; color: #1A4D1A; }
-        .dirt-1150-bg { background-color: #DAB48E; color: #8B4513; }
-        .dirt-1700-bg { background-color: #CD853F; color: #8B4513; }
-        .dirt-2400-bg { background-color: #E8D2AA; color: #8B6B3B; }
+        /* Specific background colors and text colors for diagrams */
+        .turf-1200-bg { background-color: #A8DADC; color: #2C3E50; } /* Light Blue-Green, Dark Grey Text */
+        .turf-1800-bg { background-color: #DCC7A8; color: #58370B; } /* Tan, Brown Text */
+        .turf-2000-bg { background-color: #ADD8E6; color: #00008B; } /* Light Blue, Dark Blue Text */
+        .turf-2600-bg { background-color: #B2E0B2; color: #1A4D1A; } /* Light Green, Dark Green Text */
+        .dirt-1150-bg { background-color: #DAB48E; color: #8B4513; } /* Peach, Dark Brown Text */
+        .dirt-1700-bg { background-color: #CD853F; color: #8B4513; } /* Orange-Brown, Dark Brown Text */
+        .dirt-2400-bg { background-color: #E8D2AA; color: #8B6B3B; } /* Light Gold, Dark Brown Text */
 
         /* Custom styles for enhanced headings */
         .main-header-container {
@@ -191,7 +192,9 @@
             
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">芝1200m (スプリント戦)</h3>
-                <img src="https://placehold.co/400x200/A8DADC/2C3E50?text=芝コース" alt="芝コースの画像" class="course-image" />
+                <div class="course-diagram-box turf-1200-bg">
+                    <span>芝1200m</span><br><span>コース図</span>
+                </div>
                 <p class="text-stone-700 leading-relaxed">向こう正面の2コーナー奥ポケットからスタートするワンターンコースです [1]。最初のコーナーまでの距離は約400m（約412m）と短距離としては長めです [1]。直線距離は292mと短く、短距離戦らしくハイペースになりやすい傾向があります [1]。</p>
                 
                 <!-- Collapsible Section: 脚質・枠順の傾向 -->
@@ -211,7 +214,7 @@
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
-                        <span class="text-rose-700">🔥 ナーツゴンニャ中井さんの激熱データ</span>
+                        <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
                     </div>
                     <div class="collapsible-content">
@@ -253,7 +256,9 @@
 
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">芝1800m</h3>
-                <img src="https://placehold.co/400x200/DCC7A8/58370B?text=Turf+Course" alt="芝コースの画像" class="course-image" />
+                <div class="course-diagram-box turf-1800-bg">
+                    <span>芝1800m</span><br><span>コース図</span>
+                </div>
                 <p class="text-stone-700 leading-relaxed">正面スタンド前中ほどからスタートし、コースを1周するコースです [1]。最初のコーナーまでの距離は300m程度と比較的短く、位置取りがタイトになりがちです [1]。スタート後に上り坂があるためペースが上がらず、ミドルペースからややスローペースに落ち着きやすい傾向にあります [1]。直線が短いため、コーナーワークと先行力が重要となります [1]。</p>
                 
                 <!-- Collapsible Section: 脚質・枠順の傾向 -->
@@ -273,7 +278,7 @@
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの分析 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
-                        <span class="text-rose-700 font-bold">🔥 ナーツゴンニャ中井さんの分析</span>
+                        <span>🔥 ナーツゴンニャ中井さんの分析</span>
                         <span class="toggle-icon">▼</span>
                     </div>
                     <div class="collapsible-content">
@@ -316,7 +321,9 @@
 
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">芝2000m</h3>
-                <img src="https://placehold.co/400x200/ADD8E6/00008B?text=Turf+Course" alt="芝コースの画像" class="course-image" />
+                <div class="course-diagram-box turf-2000-bg">
+                    <span>芝2000m</span><br><span>コース図</span>
+                </div>
                 <p class="text-stone-700 leading-relaxed">正面スタンド前の4コーナー奥からスタートし、コースを1周するコースです [1]。最初のコーナーまでの距離は約500m（約505m）と福島芝コースの中では最も長く、前半のペースが明らかに速くなるのが特徴です [1]。このため、<span class="keyword-banner">逃げ馬</span>にとっては不利な条件となります [1]。</p>
                 
                 <!-- Collapsible Section: 脚質・枠順の傾向 -->
@@ -337,7 +344,7 @@
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
-                        <span class="text-rose-700 font-bold">🔥 ナーツゴンニャ中井さんの激熱データ</span>
+                        <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
                     </div>
                     <div class="collapsible-content">
@@ -379,7 +386,9 @@
 
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">芝2600m</h3>
-                <img src="https://placehold.co/400x200/B2E0B2/1A4D1A?text=Turf+Course" alt="芝コースの画像" class="course-image" />
+                <div class="course-diagram-box turf-2600-bg">
+                    <span>芝2600m</span><br><span>コース図</span>
+                </div>
                 <p class="text-stone-700 leading-relaxed">向こう正面からスタートし、コーナーを6つ回る長距離コースです [1]。高速馬場になることが少ないエクイターフ比重の大きい福島競馬場で行われるため、スタミナがしっかり問われる舞台です [1]。ペースはミドルからややスローペースとなることが多く、ハイペースにはなりにくいです [1]。</p>
                 
                 <!-- Collapsible Section: 脚質・枠順の傾向 -->
@@ -399,7 +408,7 @@
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
-                        <span class="text-rose-700 font-bold">🔥 ナーツゴンニャ中井さんの激熱データ</span>
+                        <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
                     </div>
                     <div class="collapsible-content">
@@ -445,7 +454,7 @@
             
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">ダート1150m</h3>
-                <div class="course-diagram-placeholder dirt-1150-bg">
+                <div class="course-diagram-box dirt-1150-bg">
                     <span>ダート1150m</span><br><span>コース図</span>
                 </div>
                 <p class="text-stone-700 leading-relaxed">JRA唯一の1150m戦であり、向こう正面の2コーナー奥、芝コースからスタートするワンターンコースです [1]。スタートから最初のカーブまでの直線が長く、芝部分でスピードに乗りやすいため、全体的にハイペースになりやすいです [1]。直線は平坦で、前に行った馬が止まりにくい傾向があります [1]。</p>
@@ -468,7 +477,7 @@
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
-                        <span class="text-rose-700 font-bold">🔥 ナーツゴンニャ中井さんの激熱データ</span>
+                        <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
                     </div>
                     <div class="collapsible-content">
@@ -521,7 +530,7 @@
 
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">ダート1700m</h3>
-                <div class="course-diagram-placeholder dirt-1700-bg">
+                <div class="course-diagram-box dirt-1700-bg">
                     <span>ダート1700m</span><br><span>コース図</span>
                 </div>
                 <p class="text-stone-700 leading-relaxed">正面スタンド前の4コーナー出口からスタートし、コースを1周するコースです [1]。高低差2.1mのアップダウンがあり、向こう正面からゴールまで緩やかな坂道を登り続けるコース設定となっており、タフさが求められます [1]。前半のペースは速くなりやすい傾向があります [1]。</p>
@@ -543,7 +552,7 @@
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
-                        <span class="text-rose-700 font-bold">🔥 ナーツゴンニャ中井さんの激熱データ</span>
+                        <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
                     </div>
                     <div class="collapsible-content">
@@ -585,7 +594,7 @@
 
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">ダート2400m</h3>
-                <div class="course-diagram-placeholder dirt-2400-bg">
+                <div class="course-diagram-box dirt-2400-bg">
                     <span>ダート2400m</span><br><span>コース図</span>
                 </div>
                 <p class="text-stone-700 leading-relaxed">向こう正面の直線入口からスタートし、コーナーを6つ回る長距離コースです [1]。年数回しか開催されない激レアレースです [1]。ダートコースとしては珍しく、<span class="keyword-banner">内枠</span>の馬の成績が良い傾向があります [1]。向こう正面からのスタート後、なだらかな上り坂を上るコースとなっており、ペースは上がらず<span class="keyword-banner">ミドルペース</span>からやや<span class="keyword-banner">スローペース</span>となりやすいです [1]。</p>
@@ -607,7 +616,7 @@
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
-                        <span class="text-rose-700 font-bold">🔥 ナーツゴンニャ中井さんの激熱データ</span>
+                        <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
                     </div>
                     <div class="collapsible-content">
@@ -774,7 +783,12 @@
         };
 
         function createBarChart(ctxId, labels, data, title) {
-            const ctx = document.getElementById(ctxId).getContext('2d');
+            const ctx = document.getElementById(ctxId);
+            // Check if a chart instance already exists on this canvas and destroy it
+            const existingChart = Chart.getChart(ctxId);
+            if (existingChart) {
+                existingChart.destroy();
+            }
             new Chart(ctx, {
                 type: 'bar',
                 data: {
