@@ -13,11 +13,12 @@
     <!-- Application Structure Plan: A single-page application divided into logical sections for overall tendencies, turf courses, and dirt courses. Each course section contains detailed information about its characteristics, leg type/frame tendencies, jockeys, stallions, and hot data. The primary interaction is automated slow scrolling, mimicking a video, making the content consumable without manual intervention. A fixed navigation bar allows users to jump to sections if they prefer manual exploration. Citation numbers are embedded for transparency. -->
     <!-- Visualization & Content Choices:
         1. Overall Tendencies: Goal: Inform about general course features. Viz/Presentation: Key textual summaries. Interaction: Static display. Justification: Provides essential context before diving into specifics.
-        2. Course Sections (Turf/Dirt by distance): Goal: Detail specific course features, tendencies, and key data. Viz/Presentation: Textual descriptions, bullet points, numbered lists, **collapsible sections for details**, and **course diagrams with Japanese text drawn using HTML/CSS**. Interaction: **User can expand/collapse details manually**. Justification: Categorizes complex information for easy digestion. Collapsible sections improve readability and allow focused manual exploration, and diagrams add visual understanding of course layout.
+        2. Course Sections (Turf/Dirt by distance): Goal: Detail specific course features, tendencies, and key data. Viz/Presentation: Textual descriptions, bullet points, numbered lists, **collapsible sections for details**, and **course type diagrams with Japanese text drawn using HTML/CSS**. Interaction: **User can expand/collapse details manually**. Justification: Categorizes complex information for easy digestion. Collapsible sections improve readability and allow focused manual exploration, and diagrams add visual understanding of course type.
         3. Jockeys/Stallions: Goal: List specific actionable data. Viz/Presentation: Textual lists, **illustrative bar charts (mock data)**. Interaction: Static charts. Justification: Directly answers user's prompt for this specific data, presented clearly, with charts adding visual understanding.
         4. Natsu Gonnnya Nakai's Hot Data: Goal: Highlight unique, high-value insights. Viz/Presentation: Emphasized text blocks, **styled as banners**. Interaction: Static display. Justification: Direct attribution to the requested source, presented prominently with strong visual emphasis.
         5. Sources: Goal: Provide transparency and credibility. Viz/Presentation: Numbered list of source types. Interaction: Passive viewing. Justification: Essential for a reliable information source and copyright consideration.
         6. Auto-Scroll: Removed. Interaction: Manual scrolling only. Justification: User requested a static version for GitHub upload.
+        7. AdSense Policy/Contact Info: Goal: Meet AdSense approval requirements. Viz/Presentation: Dedicated text section with links. Interaction: Static display. Justification: Provides necessary legal/contact information for AdSense compliance.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -66,18 +67,12 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             font-size: 1.5rem; /* Larger font */
             font-weight: bold;
-            color: white; /* Default text color */
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             text-align: center;
         }
         /* Specific background colors and text colors for diagrams */
-        .turf-1200-bg { background-color: #A8DADC; color: #2C3E50; } /* Light Blue-Green, Dark Grey Text */
-        .turf-1800-bg { background-color: #DCC7A8; color: #58370B; } /* Tan, Brown Text */
-        .turf-2000-bg { background-color: #ADD8E6; color: #00008B; } /* Light Blue, Dark Blue Text */
-        .turf-2600-bg { background-color: #B2E0B2; color: #1A4D1A; } /* Light Green, Dark Green Text */
-        .dirt-1150-bg { background-color: #DAB48E; color: #8B4513; } /* Peach, Dark Brown Text */
-        .dirt-1700-bg { background-color: #CD853F; color: #8B4513; } /* Orange-Brown, Dark Brown Text */
-        .dirt-2400-bg { background-color: #E8D2AA; color: #8B6B3B; } /* Light Gold, Dark Brown Text */
+        .turf-bg { background-color: #A8DADC; color: #2C3E50; } /* Light Blue-Green, Dark Grey Text */
+        .dirt-bg { background-color: #DAB48E; color: #8B4513; } /* Peach, Dark Brown Text */
 
         /* Custom styles for enhanced headings */
         .main-header-container {
@@ -162,6 +157,7 @@
                     <li><a href="#dirt" class="nav-link text-xs sm:text-sm font-medium py-2 px-3 rounded-md hover:bg-teal-600">ダートコース</a></li>
                     <li><a href="#summary" class="nav-link text-xs sm:text-sm font-medium py-2 px-3 rounded-md hover:bg-teal-600">攻略ヒント</a></li>
                     <li><a href="#sources" class="nav-link text-xs sm:text-sm font-medium py-2 px-3 rounded-md hover:bg-teal-600">引用元</a></li>
+                    <li><a href="#adsense-compliance" class="nav-link text-xs sm:text-sm font-medium py-2 px-3 rounded-md hover:bg-teal-600">AdSenseについて</a></li>
                 </ul>
             </div>
         </nav>
@@ -192,8 +188,8 @@
             
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">芝1200m (スプリント戦)</h3>
-                <div class="course-diagram-box turf-1200-bg">
-                    <span>芝1200m</span><br><span>コース図</span>
+                <div class="course-diagram-box turf-bg">
+                    <span>芝コース</span><br><span>（1200m）</span>
                 </div>
                 <p class="text-stone-700 leading-relaxed">向こう正面の2コーナー奥ポケットからスタートするワンターンコースです [1]。最初のコーナーまでの距離は約400m（約412m）と短距離としては長めです [1]。直線距離は292mと短く、短距離戦らしくハイペースになりやすい傾向があります [1]。</p>
                 
@@ -256,13 +252,13 @@
 
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">芝1800m</h3>
-                <div class="course-diagram-box turf-1800-bg">
-                    <span>芝1800m</span><br><span>コース図</span>
+                <div class="course-diagram-box turf-bg">
+                    <span>芝コース</span><br><span>（1800m）</span>
                 </div>
                 <p class="text-stone-700 leading-relaxed">正面スタンド前中ほどからスタートし、コースを1周するコースです [1]。最初のコーナーまでの距離は300m程度と比較的短く、位置取りがタイトになりがちです [1]。スタート後に上り坂があるためペースが上がらず、ミドルペースからややスローペースに落ち着きやすい傾向にあります [1]。直線が短いため、コーナーワークと先行力が重要となります [1]。</p>
                 
                 <!-- Collapsible Section: 脚質・枠順の傾向 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
                         <span class="toggle-icon">▼</span>
@@ -276,7 +272,7 @@
                 </div>
 
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの分析 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの分析</span>
                         <span class="toggle-icon">▼</span>
@@ -287,7 +283,7 @@
                 </div>
 
                 <!-- Collapsible Section: 相性の良い騎手 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
                         <span class="toggle-icon">▼</span>
@@ -302,7 +298,7 @@
                 </div>
 
                 <!-- Collapsible Section: 好走する種牡馬 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
                         <span class="toggle-icon">▼</span>
@@ -321,13 +317,13 @@
 
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">芝2000m</h3>
-                <div class="course-diagram-box turf-2000-bg">
+                <div class="course-diagram-box turf-bg">
                     <span>芝2000m</span><br><span>コース図</span>
                 </div>
                 <p class="text-stone-700 leading-relaxed">正面スタンド前の4コーナー奥からスタートし、コースを1周するコースです [1]。最初のコーナーまでの距離は約500m（約505m）と福島芝コースの中では最も長く、前半のペースが明らかに速くなるのが特徴です [1]。このため、<span class="keyword-banner">逃げ馬</span>にとっては不利な条件となります [1]。</p>
                 
                 <!-- Collapsible Section: 脚質・枠順の傾向 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
                         <span class="toggle-icon">▼</span>
@@ -342,7 +338,7 @@
                 </div>
 
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
@@ -353,7 +349,7 @@
                 </div>
 
                 <!-- Collapsible Section: 相性の良い騎手 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
                         <span class="toggle-icon">▼</span>
@@ -368,7 +364,7 @@
                 </div>
 
                 <!-- Collapsible Section: 好走する種牡馬 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
                         <span class="toggle-icon">▼</span>
@@ -386,13 +382,13 @@
 
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">芝2600m</h3>
-                <div class="course-diagram-box turf-2600-bg">
+                <div class="course-diagram-box turf-bg">
                     <span>芝2600m</span><br><span>コース図</span>
                 </div>
                 <p class="text-stone-700 leading-relaxed">向こう正面からスタートし、コーナーを6つ回る長距離コースです [1]。高速馬場になることが少ないエクイターフ比重の大きい福島競馬場で行われるため、スタミナがしっかり問われる舞台です [1]。ペースはミドルからややスローペースとなることが多く、ハイペースにはなりにくいです [1]。</p>
                 
                 <!-- Collapsible Section: 脚質・枠順の傾向 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
                         <span class="toggle-icon">▼</span>
@@ -406,7 +402,7 @@
                 </div>
 
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
@@ -417,7 +413,7 @@
                 </div>
 
                 <!-- Collapsible Section: 相性の良い騎手 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
                         <span class="toggle-icon">▼</span>
@@ -432,7 +428,7 @@
                 </div>
 
                 <!-- Collapsible Section: 好走する種牡馬 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
                         <span class="toggle-icon">▼</span>
@@ -454,13 +450,13 @@
             
             <div class="bg-white p-6 rounded-lg shadow-lg space-y-8 mb-8">
                 <h3 class="text-xl font-bold text-amber-700 section-h3-accent pb-2">ダート1150m</h3>
-                <div class="course-diagram-box dirt-1150-bg">
+                <div class="course-diagram-box dirt-bg">
                     <span>ダート1150m</span><br><span>コース図</span>
                 </div>
                 <p class="text-stone-700 leading-relaxed">JRA唯一の1150m戦であり、向こう正面の2コーナー奥、芝コースからスタートするワンターンコースです [1]。スタートから最初のカーブまでの直線が長く、芝部分でスピードに乗りやすいため、全体的にハイペースになりやすいです [1]。直線は平坦で、前に行った馬が止まりにくい傾向があります [1]。</p>
                 
                 <!-- Collapsible Section: 脚質・枠順の傾向 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
                         <span class="toggle-icon">▼</span>
@@ -475,7 +471,7 @@
                 </div>
 
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
@@ -486,7 +482,7 @@
                 </div>
 
                 <!-- Collapsible Section: 馬体重の傾向 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header">
                         <span>馬体重の傾向</span>
                         <span class="toggle-icon">▼</span>
@@ -497,7 +493,7 @@
                 </div>
 
                 <!-- Collapsible Section: 相性の良い騎手 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
                         <span class="toggle-icon">▼</span>
@@ -512,7 +508,7 @@
                 </div>
 
                 <!-- Collapsible Section: 好走する種牡馬 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
                         <span class="toggle-icon">▼</span>
@@ -536,7 +532,7 @@
                 <p class="text-stone-700 leading-relaxed">正面スタンド前の4コーナー出口からスタートし、コースを1周するコースです [1]。高低差2.1mのアップダウンがあり、向こう正面からゴールまで緩やかな坂道を登り続けるコース設定となっており、タフさが求められます [1]。前半のペースは速くなりやすい傾向があります [1]。</p>
                 
                 <!-- Collapsible Section: 脚質・枠順の傾向 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
                         <span class="toggle-icon">▼</span>
@@ -550,7 +546,7 @@
                 </div>
 
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
@@ -561,7 +557,7 @@
                 </div>
 
                 <!-- Collapsible Section: 相性の良い騎手 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
                         <span class="toggle-icon">▼</span>
@@ -576,7 +572,7 @@
                 </div>
 
                 <!-- Collapsible Section: 好走する種牡馬 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
                         <span class="toggle-icon">▼</span>
@@ -600,7 +596,7 @@
                 <p class="text-stone-700 leading-relaxed">向こう正面の直線入口からスタートし、コーナーを6つ回る長距離コースです [1]。年数回しか開催されない激レアレースです [1]。ダートコースとしては珍しく、<span class="keyword-banner">内枠</span>の馬の成績が良い傾向があります [1]。向こう正面からのスタート後、なだらかな上り坂を上るコースとなっており、ペースは上がらず<span class="keyword-banner">ミドルペース</span>からやや<span class="keyword-banner">スローペース</span>となりやすいです [1]。</p>
                 
                 <!-- Collapsible Section: 脚質・枠順の傾向 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
                         <span class="toggle-icon">▼</span>
@@ -614,7 +610,7 @@
                 </div>
 
                 <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
@@ -625,7 +621,7 @@
                 </div>
 
                 <!-- Collapsible Section: 相性の良い騎手 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
                         <span class="toggle-icon">▼</span>
@@ -640,7 +636,7 @@
                 </div>
 
                 <!-- Collapsible Section: 好走する種牡馬 -->
-                <div class="collapsible-container">
+                <div class="collapsible-container>
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
                         <span class="toggle-icon">▼</span>
@@ -675,6 +671,32 @@
                     <li>**種牡馬の好走・穴馬傾向、生産者:** 各種競馬情報サイトの種牡馬別コース成績、血統分析専門サイトのデータ、およびナーツゴンニャ中井さんの解説に基づく。</li>
                 </ol>
                 <p class="text-sm text-stone-600 mt-4">※上記は、動画内での簡潔な引用元表記の補足です。YouTubeの概要欄には、より具体的なURLを記載することを推奨します。</p>
+            </div>
+        </section>
+
+        <section id="adsense-compliance" class="scroll-mt-24">
+            <h2 class="section-h2 text-2xl font-bold pl-4 mb-6">Google AdSenseについて</h2>
+            <div class="bg-white p-6 rounded-lg shadow-lg space-y-4">
+                <p class="text-stone-700 leading-relaxed">
+                    本サイトでは、Google AdSenseを利用して広告を掲載する可能性があります。
+                    Google AdSenseのプログラムポリシーを遵守し、ユーザーの皆様に安全で質の高い情報を提供することに努めています。
+                </p>
+                <ul class="list-disc list-inside text-stone-700 space-y-2 pl-4">
+                    <li>**Google AdSense プログラムポリシー:**<br>
+                        <a href="https://support.google.com/adsense/answer/48182" target="_blank" class="text-teal-600 hover:text-teal-800 font-medium">Google AdSense プログラムポリシーはこちらをご確認ください</a>
+                    </li>
+                    <li>**プライバシーポリシーについて:**<br>
+                        当サイトでは、ユーザーの皆様のプライバシーを尊重し、適切に保護するためのプライバシーポリシーを別途掲載しています。<br>
+                        <a href="https://www.bossboss.jp/privacy-policy.html" target="_blank" class="text-teal-600 hover:text-teal-800 font-medium">プライバシーポリシーはこちら</a> (※貴方のサイトのプライバシーポリシーURLに修正してください)
+                    </li>
+                    <li>**お問い合わせ先:**<br>
+                        広告掲載やその他ご不明な点がございましたら、以下のメールアドレスまでお問い合わせください。<br>
+                        <span class="font-semibold text-teal-700">your-email@bossboss.jp</span> (※貴方のお問い合わせ用メールアドレスに修正してください)
+                    </li>
+                </ul>
+                <p class="text-sm text-stone-600 mt-4">
+                    ※Google AdSenseの審査には、サイトのコンテンツの質や量、ユーザーの操作性なども考慮されます。
+                </p>
             </div>
         </section>
 
