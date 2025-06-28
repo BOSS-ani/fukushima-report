@@ -239,7 +239,7 @@
                 <p class="text-stone-700 leading-relaxed">福島競馬場の芝コースは、野芝に洋芝をオーバーシードした馬場です。ナーツゴンニャ中井さんは、この芝コースが「日本で一番馬場状態が変わりやすい」と断言しています [2]。</p>
                 <ul class="list-disc list-inside text-stone-700 space-y-2 pl-4">
                     <li>**Aコース (開催前半):** 開幕週や開催序盤は馬場状態が良く、時計が出やすく、<span class="keyword-banner">内枠</span>や<span class="keyword-banner">先行馬</span>が圧倒的に有利な傾向が顕著です [2]。</li>
-                    <li>**Bコース (開催後半):** 開催が進むにつれて馬場が荒れやすくなり、時計がかかるようになります [2]。内側の馬場状態が悪くなるため、馬場の良い<span class="keyword-banner">外枠</span>の馬や<span class="keyword-banner">外からの差し馬</span>が好走する傾向が強まります [2]。最近はエクイターフの導入により、以前ほど極端な荒れ方は少なくなりましたが、それでも速い時計は出にくい傾向にあります [2]。</li>
+                    <li>**Bコース (開催後半):** 開催が進むにつれて馬場が荒れやすくなり、時計がかかるようになります [2]。内側の馬場状態が悪くなるため、馬場の良い<span class="keyword-banner">外枠</span>の馬や<span class="keyword-banner">外からの差し馬</span>が好走する傾向が強まります [2]。最近はエクイターフの導入により、以前ほど極端な荒れ方は少なくなりましたが、それでも速い時計は出にくい傾向にあります [2]。<span class="keyword-banner">逃げ馬</span>の複勝率もAコースの54.5%からBコースの39%まで変化します [2]。</li>
                 </ul>
                 <p class="text-stone-700 leading-relaxed mt-4">ダートコースについては、芝スタートのコースを除き、一般的に枠の有利不利は<span class="keyword-banner">フラット</span>な傾向にあるとされています [1]。全体的には<span class="keyword-banner">先行有利</span>の傾向が強いです [1]。</p>
                 <p class="citation-note">※文中の数字は該当引用元の番号です。詳細は最下部の【引用元】セクションをご確認ください。</p>
@@ -503,6 +503,7 @@
                 </div>
                 <p class="citation-note">※文中の数字は該当引用元の番号です。詳細は最下部の【引用元】セクションをご確認ください。</p>
             </div>
+            <!-- 芝コース：距離別・詳細分析の記事下広告エリア -->
             <div class="adsense-unit">
                 <p>ここに「芝コース」記事下広告が表示されます (審査承認後)</p>
                 <ins class="adsbygoogle"
@@ -804,7 +805,7 @@
                 });
             });
 
-            // Initialize all collapsible sections to be collapsed by default
+            // Initialize all collapsible sections to be collapsed by default on page load
             document.querySelectorAll('.collapsible-content').forEach(content => {
                 content.style.maxHeight = '0'; // Ensure it's collapsed
                 content.classList.add('collapsed'); 
@@ -960,18 +961,27 @@
                         icon.classList.add('rotated');
                         
                         const sectionId = header.closest('section').id;
-                        const dataKey = header.getAttribute('data-chart-key'); // Custom attribute to map to chartData
+                        // Determine dataKey based on the closest h3's text content (e.g., "芝1200m")
+                        const h3Text = header.closest('.bg-white').querySelector('h3').textContent;
+                        let dataKey;
+                        if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                        else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                        else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                        else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                        else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                        else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                        else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
 
                         if (dataKey && chartData[dataKey]) {
-                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`; // e.g., chartTurf1200Jockey
-                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`; // e.g., chartTurf1200Stallion
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
                             
                             // Check for canvas elements and create charts
                             if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
-                                createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${dataKey.includes('turf') ? '芝' : 'ダート'}${dataKey.replace('turf','').replace('dirt','')} 好相性騎手`);
+                                createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${h3Text.split(' ')[0]} 好相性騎手`);
                             }
                             if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
-                                createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${dataKey.includes('turf') ? '芝' : 'ダート'}${dataKey.replace('turf','').replace('dirt','')} 好走種牡馬`);
+                                createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${h3Text.split(' ')[0]} 好走種牡馬`);
                             }
                         }
                     } else {
@@ -1005,7 +1015,7 @@
             // Initialize all collapsible sections to be collapsed by default on page load
             document.querySelectorAll('.collapsible-content').forEach(content => {
                 content.style.maxHeight = '0'; // Ensure it's collapsed
-                content.classList.add('collapsed');
+                content.classList.add('collapsed'); 
                 const icon = content.previousElementSibling.querySelector('.toggle-icon');
                 if (icon) {
                     icon.classList.remove('rotated'); // Ensure icon points down
