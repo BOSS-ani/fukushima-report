@@ -783,7 +783,7 @@
                         icon.classList.add('rotated');
                         
                         // Find the closest h3 to determine the section and data key
-                        const closestH3 = header.closest('.bg-white').querySelector('h3');
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
                         let dataKey;
                         if (closestH3) {
                             const h3Text = closestH3.textContent;
@@ -814,6 +814,26 @@
                         content.style.maxHeight = '0'; // Collapse
                         content.classList.remove('expanded');
                         icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
                     }
                 });
             });
@@ -974,7 +994,7 @@
                         icon.classList.add('rotated');
                         
                         // Find the closest h3 to determine the section and data key
-                        const closestH3 = header.closest('.bg-white').querySelector('h3');
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
                         let dataKey;
                         if (closestH3) {
                             const h3Text = closestH3.textContent;
