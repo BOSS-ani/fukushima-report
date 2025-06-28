@@ -44,7 +44,7 @@
             max-height: 0; /* Initially collapsed */
         }
         .collapsible-content.expanded {
-            max-height: 1000px; /* Will be dynamically set by JS */
+            /* max-height will be set dynamically by JS */
         }
         .toggle-icon {
             transform: rotate(0deg);
@@ -788,19 +788,45 @@
                 header.addEventListener('click', () => {
                     const content = header.nextElementSibling;
                     const icon = header.querySelector('.toggle-icon');
-                    content.classList.toggle('expanded');
-                    icon.classList.toggle('rotated');
-                    
-                    // Smooth scroll to the header when expanded
-                    if (content.classList.contains('expanded')) {
-                        header.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                        // Dynamically set max-height to scrollHeight for smooth transition
-                        content.style.maxHeight = content.scrollHeight + 'px';
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('.bg-white').querySelector('h3');
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 50); // Small delay to allow DOM to render max-height
+                        }
                     } else {
-                        content.style.maxHeight = '0';
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
                     }
                 });
             });
@@ -978,13 +1004,15 @@
                             const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
                             const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
                             
-                            // Check for canvas elements and create charts
-                            if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
-                                createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
-                            }
-                            if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
-                                createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
-                            }
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 50); // Small delay to allow DOM to render max-height
                         }
                     } else {
                         content.style.maxHeight = '0'; // Collapse
