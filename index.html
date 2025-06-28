@@ -821,7 +821,7 @@
                                 if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
                                     createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
                                 }
-                            }, 100); // Increased delay slightly
+                            }, 200); // Increased delay slightly
                         }
                     } else {
                         content.style.maxHeight = '0'; // Collapse
@@ -1012,7 +1012,7 @@
                                 if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
                                     createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
                                 }
-                            }, 100); // Increased delay slightly
+                            }, 200); // Increased delay slightly
                         }
                     } else {
                         content.style.maxHeight = '0'; // Collapse
