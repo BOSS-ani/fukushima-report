@@ -44,7 +44,7 @@
             max-height: 0; /* Initially collapsed */
         }
         .collapsible-content.expanded {
-            max-height: 1000px; /* Max height for expanded content - will be overridden by JS for scrollHeight */
+            max-height: 1000px; /* Will be dynamically set by JS */
         }
         .toggle-icon {
             transform: rotate(0deg);
@@ -960,17 +960,19 @@
                         content.classList.add('expanded');
                         icon.classList.add('rotated');
                         
-                        const sectionId = header.closest('section').id;
-                        // Determine dataKey based on the closest h3's text content (e.g., "芝1200m")
-                        const h3Text = header.closest('.bg-white').querySelector('h3').textContent;
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('.bg-white').querySelector('h3');
                         let dataKey;
-                        if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
-                        else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
-                        else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
-                        else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
-                        else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
-                        else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
-                        else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
 
                         if (dataKey && chartData[dataKey]) {
                             const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
@@ -978,10 +980,10 @@
                             
                             // Check for canvas elements and create charts
                             if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
-                                createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${h3Text.split(' ')[0]} 好相性騎手`);
+                                createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
                             }
                             if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
-                                createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${h3Text.split(' ')[0]} 好走種牡馬`);
+                                createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
                             }
                         }
                     } else {
