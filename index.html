@@ -1058,7 +1058,2722 @@
                     icon.classList.remove('rotated'); // Ensure icon points down
                 }
             });
-        });
-    </script>
-</body>
-</html>
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        // First, expand the content
+                        content.style.maxHeight = content.scrollHeight + 'px'; 
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Then, with a delay, render charts to ensure canvas has dimensions
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else { // If currently expanded, collapse
+                        content.style.maxHeight = '0';
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0'; // Ensure it's collapsed
+                content.classList.add('collapsed'); 
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田裕二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    const isExpanded = content.classList.contains('expanded');
+
+                    if (!isExpanded) { // Only render charts if expanding
+                        content.style.maxHeight = content.scrollHeight + 'px'; // Expand to full height
+                        content.classList.add('expanded');
+                        icon.classList.add('rotated');
+                        
+                        // Find the closest h3 to determine the section and data key
+                        const closestH3 = header.closest('div.bg-white').querySelector('h3'); // More specific selector
+                        let dataKey;
+                        if (closestH3) {
+                            const h3Text = closestH3.textContent;
+                            if (h3Text.includes('芝1200m')) dataKey = 'turf1200';
+                            else if (h3Text.includes('芝1800m')) dataKey = 'turf1800';
+                            else if (h3Text.includes('芝2000m')) dataKey = 'turf2000';
+                            else if (h3Text.includes('芝2600m')) dataKey = 'turf2600';
+                            else if (h3Text.includes('ダート1150m')) dataKey = 'dirt1150';
+                            else if (h3Text.includes('ダート1700m')) dataKey = 'dirt1700';
+                            else if (h3Text.includes('ダート2400m')) dataKey = 'dirt2400';
+                        }
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`;
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`;
+                            
+                            // Use a small timeout to ensure canvas is rendered and has dimensions
+                            setTimeout(() => {
+                                if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                    createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好相性騎手`);
+                                }
+                                if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                    createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${closestH3 ? closestH3.textContent.split(' ')[0] : dataKey} 好走種牡馬`);
+                                }
+                            }, 200); // Increased delay slightly
+                        }
+                    } else {
+                        content.style.maxHeight = '0'; // Collapse
+                        content.classList.remove('expanded');
+                        icon.classList.remove('rotated');
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor =
