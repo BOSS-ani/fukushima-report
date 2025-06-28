@@ -11,7 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Google AdSense 自動広告コード (HEAD内) -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8419575231209847" crossorigin="anonymous"></script>
 
     <style>
@@ -143,6 +142,50 @@
             border-radius: 5px;
             border-left: 3px solid #0d9488;
         }
+
+        /* AdSenseユニットのスタイル */
+        .adsense-unit {
+            background-color: #F8F8F8;
+            border: 1px dashed #CCC;
+            padding: 10px;
+            margin: 2rem auto; /* 上下のマージンを確保し、中央寄せ */
+            max-width: 728px; /* 広告の一般的な最大幅 */
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            border-radius: 8px;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            nav a {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            main {
+                padding: 0 1rem;
+            }
+            section {
+                padding: 1.5rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            .adsense-unit {
+                margin: 1.5rem auto; /* スマホでのマージン調整 */
+                max-width: 100%; /* スマホではフル幅に */
+            }
+        }
     </style>
 </head>
 <body class="text-stone-800 min-h-screen">
@@ -170,7 +213,6 @@
 
     <main class="container mx-auto p-4 md:p-8 space-y-12 pb-20">
         
-        <!-- ヘッダー下広告エリア -->
         <div class="adsense-unit">
             <p>ここにヘッダー下広告が表示されます (審査承認後)</p>
             <ins class="adsbygoogle"
@@ -195,12 +237,11 @@
                 <p class="text-stone-700 leading-relaxed">福島競馬場の芝コースは、野芝に洋芝をオーバーシードした馬場です。ナーツゴンニャ中井さんは、この芝コースが「日本で一番馬場状態が変わりやすい」と断言しています [2]。</p>
                 <ul class="list-disc list-inside text-stone-700 space-y-2 pl-4">
                     <li>**Aコース (開催前半):** 開幕週や開催序盤は馬場状態が良く、時計が出やすく、<span class="keyword-banner">内枠</span>や<span class="keyword-banner">先行馬</span>が圧倒的に有利な傾向が顕著です [2]。</li>
-                    <li>**Bコース (開催後半):** 開催が進むにつれて馬場が荒れやすくなり、時計がかかるようになります [2]。内側の馬場状態が悪くなるため、馬場の良い<span class="keyword-banner">外側</span>を通れる<span class="keyword-banner">外枠</span>の馬や<span class="keyword-banner">差し馬</span>が好走する傾向が強まります [2]。最近はエクイターフの導入により、以前ほど極端な荒れ方は少なくなりましたが、それでも速い時計は出にくい傾向にあります [2]。</li>
+                    <li>**Bコース (開催後半):** 開催が進むにつれて馬場が荒れやすくなり、時計がかかるようになります [2]。内側の馬場状態が悪くなるため、馬場の良い<span class="keyword-banner">外枠</span>の馬や<span class="keyword-banner">外からの差し馬</span>が好走する傾向が強まります [2]。最近はエクイターフの導入により、以前ほど極端な荒れ方は少なくなりましたが、それでも速い時計は出にくい傾向にあります [2]。</li>
                 </ul>
                 <p class="text-stone-700 leading-relaxed mt-4">ダートコースについては、芝スタートのコースを除き、一般的に枠の有利不利は<span class="keyword-banner">フラット</span>な傾向にあるとされています [1]。全体的には<span class="keyword-banner">先行有利</span>の傾向が強いです [1]。</p>
                 <p class="citation-note">※文中の数字は該当引用元の番号です。詳細は最下部の【引用元】セクションをご確認ください。</p>
             </div>
-            <!-- 福島競馬場：全体的な傾向と対策の記事下広告エリア -->
             <div class="adsense-unit">
                 <p>ここに「全体的な傾向と対策」記事下広告が表示されます (審査承認後)</p>
                 <ins class="adsbygoogle"
@@ -225,7 +266,6 @@
                 </div>
                 <p class="text-stone-700 leading-relaxed">向こう正面の2コーナー奥ポケットからスタートするワンターンコースです [1]。最初のコーナーまでの距離は約400m（約412m）と短距離としては長めです [1]。直線距離は292mと短く、短距離戦らしくハイペースになりやすい傾向があります [1]。</p>
                 
-                <!-- Collapsible Section: 脚質・枠順の傾向 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
@@ -234,12 +274,11 @@
                     <div class="collapsible-content">
                         <ul class="list-disc list-inside text-stone-700 space-y-2 pl-4">
                             <li>**Aコース (開催前半):** スピード上位の<span class="keyword-banner">先行馬</span>が圧倒的に有利で、<span class="keyword-banner">内枠</span>が特に有利です [2]。ナーツゴンニャ中井さんのデータによると、<span class="keyword-banner">1枠</span>の複勝率は25.9%と非常に高いです [2]。</li>
-                            <li>**Bコース (開催後半):** 開催が進むにつれて馬場が荒れやすくなり、時計がかかるようになります [2]。内側の馬場状態が悪くなるため、馬場の良い<span class="keyword-banner">外側</span>を通れる<span class="keyword-banner">外枠</span>の馬や<span class="keyword-banner">差し馬</span>が好走する傾向が強まります [2]。最近はエクイターフの導入により、以前ほど極端な荒れ方は少なくなりましたが、それでも速い時計は出にくい傾向にあります [2]。<span class="keyword-banner">逃げ馬</span>の複勝率もAコースの54.5%からBコースの39%まで変化します [2]。</li>
+                            <li>**Bコース (開催後半):** 馬場が荒れて時計がかかるようになると、<span class="keyword-banner">内枠</span>の<span class="keyword-banner">先行馬</span>が厳しくなり、馬場の良い<span class="keyword-banner">外側</span>を通れる<span class="keyword-banner">外枠</span>の馬や<span class="keyword-banner">差し馬</span>が好走する傾向が強まります [2]。最近はエクイターフの導入により、以前ほど極端な荒れ方は少なくなりましたが、それでも速い時計は出にくい傾向にあります [2]。<span class="keyword-banner">逃げ馬</span>の複勝率もAコースの54.5%からBコースの39%まで変化します [2]。</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
@@ -250,7 +289,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 相性の良い騎手 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
@@ -265,7 +303,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 好走する種牡馬 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
@@ -289,7 +326,6 @@
                 </div>
                 <p class="text-stone-700 leading-relaxed">正面スタンド前中ほどからスタートし、コースを1周するコースです [1]。最初のコーナーまでの距離は300m程度と比較的短く、位置取りがタイトになりがちです [1]。スタート後に上り坂があるためペースが上がらず、ミドルペースからややスローペースに落ち着きやすい傾向にあります [1]。直線が短いため、コーナーワークと先行力が重要となります [1]。</p>
                 
-                <!-- Collapsible Section: 脚質・枠順の傾向 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
@@ -303,7 +339,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: ナーツゴンニャ中井さんの分析 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの分析</span>
@@ -314,7 +349,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 相性の良い騎手 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
@@ -329,7 +363,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 好走する種牡馬 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
@@ -354,7 +387,6 @@
                 </div>
                 <p class="text-stone-700 leading-relaxed">正面スタンド前の4コーナー奥からスタートし、コースを1周するコースです [1]。最初のコーナーまでの距離は約500m（約505m）と福島芝コースの中では最も長く、前半のペースが明らかに速くなるのが特徴です [1]。このため、<span class="keyword-banner">逃げ馬</span>にとっては不利な条件となります [1]。</p>
                 
-                <!-- Collapsible Section: 脚質・枠順の傾向 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
@@ -369,7 +401,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
@@ -380,7 +411,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 相性の良い騎手 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
@@ -395,7 +425,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 好走する種牡馬 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
@@ -419,7 +448,6 @@
                 </div>
                 <p class="text-stone-700 leading-relaxed">向こう正面からスタートし、コーナーを6つ回る長距離コースです [1]。高速馬場になることが少ないエクイターフ比重の大きい福島競馬場で行われるため、スタミナがしっかり問われる舞台です [1]。ペースはミドルからややスローペースとなることが多く、ハイペースにはなりにくいです [1]。</p>
                 
-                <!-- Collapsible Section: 脚質・枠順の傾向 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
@@ -433,7 +461,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
@@ -444,7 +471,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 相性の良い騎手 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
@@ -459,7 +485,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 好走する種牡馬 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
@@ -475,6 +500,18 @@
                 </div>
                 <p class="citation-note">※文中の数字は該当引用元の番号です。詳細は最下部の【引用元】セクションをご確認ください。</p>
             </div>
+            <div class="adsense-unit">
+                <p>ここに「芝コース」記事下広告が表示されます (審査承認後)</p>
+                <ins class="adsbygoogle"
+                    style="display:block; text-align:center;"
+                    data-ad-layout="in-article"
+                    data-ad-format="fluid"
+                    data-ad-client="ca-pub-8419575231209847"
+                    data-ad-slot="YOUR_TURF_AD_SLOT_ID"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
         </section>
 
         <section id="dirt-course" class="scroll-mt-24">
@@ -487,7 +524,6 @@
                 </div>
                 <p class="text-stone-700 leading-relaxed">JRA唯一の1150m戦であり、向こう正面の2コーナー奥、芝コースからスタートするワンターンコースです [1]。スタートから最初のカーブまでの直線が長く、芝部分でスピードに乗りやすいため、全体的にハイペースになりやすいです [1]。直線は平坦で、前に行った馬が止まりにくい傾向があります [1]。</p>
                 
-                <!-- Collapsible Section: 脚質・枠順の傾向 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
@@ -502,7 +538,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
@@ -513,7 +548,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 馬体重の傾向 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header">
                         <span>馬体重の傾向</span>
@@ -524,7 +558,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 相性の良い騎手 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
@@ -539,7 +572,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 好走する種牡馬 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
@@ -563,7 +595,6 @@
                 </div>
                 <p class="text-stone-700 leading-relaxed">正面スタンド前の4コーナー出口からスタートし、コースを1周するコースです [1]。高低差2.1mのアップダウンがあり、向こう正面からゴールまで緩やかな坂道を登り続けるコース設定となっており、タフさが求められます [1]。前半のペースは速くなりやすい傾向があります [1]。</p>
                 
-                <!-- Collapsible Section: 脚質・枠順の傾向 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
@@ -577,7 +608,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
@@ -588,7 +618,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 相性の良い騎手 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>相性の良い騎手</span>
@@ -603,7 +632,6 @@
                     </div>
                 </div>
 
-                <!-- Collapsible Section: 好走する種牡馬 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>好走する種牡馬</span>
@@ -627,7 +655,6 @@
                 </div>
                 <p class="text-stone-700 leading-relaxed">向こう正面の直線入口からスタートし、コーナーを6つ回る長距離コースです [1]。年数回しか開催されない激レアレースです [1]。ダートコースとしては珍しく、<span class="keyword-banner">内枠</span>の馬の成績が良い傾向があります [1]。向こう正面からのスタート後、なだらかな上り坂を上るコースとなっており、ペースは上がらず<span class="keyword-banner">ミドルペース</span>からやや<span class="keyword-banner">スローペース</span>となりやすいです [1]。</p>
                 
-                <!-- Collapsible Section: 脚質・枠順の傾向 -->
                 <div class="collapsible-container">
                     <div class="collapsible-header">
                         <span>脚質・枠順の傾向</span>
@@ -635,16 +662,342 @@
                     </div>
                     <div class="collapsible-content">
                         <ul class="list-disc list-inside text-stone-700 space-y-2 pl-4">
-                            <li>圧倒的に<span class="keyword-banner">逃げ</span>・<span class="keyword-banner">先行馬</span>が有利です [1]。1勝クラスレベルの馬がこの距離を走るため、最後の直線ではほぼ全馬がバテバテになり、後方からの<span class="keyword-banner">差し</span>は届きづらい傾向があります [1]。そのため、4コーナーの位取りのままゴールする場面が多く見られます [1]。ナーツゴンニャ中井さんのデータでは、<span class="keyword-banner">逃げ</span>・<span class="keyword-banner">先行馬</span>は複勝率50%を超え、非常に高い回収率を記録しています [2]。</li>
+                            <li>圧倒的に<span class="keyword-banner">逃げ</span>・<span class="keyword-banner">先行馬</span>が有利です [1]。1勝クラスレベルの馬がこの距離を走るため、最後の直線ではほぼ全馬がバテバテになり、後方からの<span class="keyword-banner">差し</span>は届きづらい傾向があります [1]。そのため、4コーナーの位取りのままゴールする場面が多く見られます [1]。ナーツゴンニャ中井さんのデータでは、<span class="keyword-banner">逃げ</span>・<span class="keyword-banner">先行馬</span>は複勝率50%を超え、非常に高い回収率を記録しています [2]。</p>
                             <li>枠の有利不利は特にありません [1]。</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Collapsible Section: ナーツゴンニャ中井さんの激熱データ -->
                 <div class="collapsible-container">
                     <div class="collapsible-header interactive-banner-header">
                         <span>🔥 ナーツゴンニャ中井さんの激熱データ</span>
                         <span class="toggle-icon">▼</span>
                     </div>
-                    <div class="c
+                    <div class="collapsible-content">
+                        <p class="text-rose-800 leading-relaxed bg-rose-50 p-3 rounded-lg border border-rose-200">「前走<span class="keyword-banner">差し</span>・<span class="keyword-banner">追い込み</span>競馬をしていた<span class="keyword-banner">距離延長馬</span>」が狙い目です [2]。馬柱だけ見ると後方からの競馬を予想されがちですが、この条件で<span class="keyword-banner">距離延長</span>を味方に<span class="keyword-banner">先行</span>できた場合に大きな妙味が出ると分析しています [2]。</p>
+                    </div>
+                </div>
+
+                <div class="collapsible-container">
+                    <div class="collapsible-header interactive-banner-header">
+                        <span>相性の良い騎手</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <p class="text-stone-700">菱田裕二騎手、加藤祥太騎手 [3]。</p>
+                        <p class="font-semibold text-teal-700 mt-4">グラフで見るパフォーマンス (模擬)</p>
+                        <div class="chart-container w-full max-w-lg mx-auto mt-4" style="height: 200px;">
+                            <canvas id="chartDirt2400Jockey"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-container">
+                    <div class="collapsible-header interactive-banner-header">
+                        <span>好走する種牡馬</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <p class="text-stone-700">クロフネ産駒、ネオユニヴァース産駒 [4]。スタミナ豊富な血統が有利とされています [4]。</p>
+                        <p class="font-semibold text-teal-700 mt-4">グラフで見るパフォーマンス (模擬)</p>
+                        <div class="chart-container w-full max-w-lg mx-auto mt-4" style="height: 200px;">
+                            <canvas id="chartDirt2400Stallion"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <p class="citation-note">※文中の数字は該当引用元の番号です。詳細は最下部の【引用元】セクションをご確認ください。</p>
+            </div>
+        </section>
+
+        <section id="summary" class="scroll-mt-24">
+            <h2>福島競馬場攻略のヒント</h2>
+            <div class="bg-white p-6 rounded-lg shadow-lg space-y-4">
+                <p class="text-stone-700 leading-relaxed">福島競馬場は小回りであることから、機動力と小回り適性が重要です。また、開催時期による馬場状態の変化、特に芝のAコース・Bコースの見極めは必須となります。ダートでは常に先行有利ですが、距離や馬場状態によって求められるスタミナやスピードは異なります。</p>
+                <p class="text-stone-700 leading-relaxed font-bold">これらの傾向と対策を理解し、貴方の馬券検討にお役立ていただければ幸いです！</p>
+            </div>
+            <div class="adsense-unit">
+                <p>ここに「攻略のヒント」記事下広告が表示されます (審査承認後)</p>
+                <ins class="adsbygoogle"
+                    style="display:block; text-align:center;"
+                    data-ad-layout="in-article"
+                    data-ad-format="fluid"
+                    data-ad-client="ca-pub-8419575231209847"
+                    data-ad-slot="YOUR_TIPS_AD_SLOT_ID"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>
+
+        <section id="adsense-compliance" class="scroll-mt-24">
+            <h2>Google AdSenseについて</h2>
+            <div class="bg-white p-6 rounded-lg shadow-lg space-y-4">
+                <p class="text-stone-700 leading-relaxed">
+                    本サイトでは、Google AdSenseを利用して広告を掲載する可能性があります。
+                    Google AdSenseのプログラムポリシーを遵守し、ユーザーの皆様に安全で質の高い情報を提供することに努めています。
+                </p>
+                <ul class="list-disc list-inside text-stone-700 space-y-2 pl-4">
+                    <li>**Google AdSense プログラムポリシー:**<br>
+                        <a href="https://support.google.com/adsense/answer/48182" target="_blank" class="text-teal-600 hover:text-teal-800 font-medium">Google AdSense プログラムポリシーはこちらをご確認ください</a>
+                    </li>
+                    <li>**プライバシーポリシーについて:**<br>
+                        当サイトでは、ユーザーの皆様のプライバシーを尊重し、適切に保護するためのプライバシーポリシーを別途掲載しています。<br>
+                        <a href="http://fukushima.bossboss.jp/privacy-policy.html" target="_blank" class="text-teal-600 hover:text-teal-800 font-medium">プライバシーポリシーはこちら</a>
+                    </li>
+                    <li>**お問い合わせ先:**<br>
+                        広告掲載やその他ご不明な点がございましたら、以下のメールアドレスまでお問い合わせください。<br>
+                        <span class="font-semibold text-teal-700">katualoma@gmail.com</span> (※貴方のお問い合わせ用メールアドレスに修正してください)
+                    </li>
+                </ul>
+                <p class="text-sm text-stone-600 mt-4">
+                    ※Google AdSenseの審査には、サイトのコンテンツの質や量、ユーザーの操作性なども考慮されます。
+                </p>
+            </div>
+            <div class="adsense-unit">
+                <p>ここに「Google AdSenseについて」記事下広告が表示されます (審査承認後)</p>
+                <ins class="adsbygoogle"
+                    style="display:block; text-align:center;"
+                    data-ad-layout="in-article"
+                    data-ad-format="fluid"
+                    data-ad-client="ca-pub-8419575231209847"
+                    data-ad-slot="YOUR_ADSENSE_COMPLIANCE_AD_SLOT_ID"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 ウマキング公認応援ch. All rights reserved.</p>
+            <p class="text-xs text-teal-300 mt-2">この分析は情報提供を目的としており、的中を保証するものではありません。</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Collapsible sections functionality
+            document.querySelectorAll('.collapsible-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const icon = header.querySelector('.toggle-icon');
+                    content.classList.toggle('expanded');
+                    icon.classList.toggle('rotated');
+                    
+                    // Smooth scroll to the header when expanded
+                    if (content.classList.contains('expanded')) {
+                        header.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.classList.add('collapsed'); // Ensure all are collapsed on load
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated'); // Ensure icon points down
+                }
+            });
+
+            // Chart Data (Illustrative/Mock Data)
+            const chartData = {
+                turf1200: {
+                    jockey: {
+                        labels: ['戸崎圭太', '勝浦正樹', 'M.デムーロ', '菱田裕二'],
+                        data: [85, 70, 65, 60] // Illustrative performance score
+                    },
+                    stallion: {
+                        labels: ['ロードカナロア', 'ダイワメジャー', 'サクラバクシンオー', 'ビッグアーサー'],
+                        data: [90, 85, 80, 75] // Illustrative performance score
+                    }
+                },
+                turf1800: {
+                    jockey: {
+                        labels: ['戸崎圭太', '西村淳也', 'M.デムーロ', '川又賢治', '吉田隼人'],
+                        data: [88, 78, 75, 65, 68]
+                    },
+                    stallion: {
+                        labels: ['シルバーステート', 'スクリーンヒーロー', 'ゴールドシップ', 'キズナ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                turf2000: {
+                    jockey: {
+                        labels: ['田辺裕信', '戸崎圭太', '丸山元気', '丹内祐次', '富田暁'],
+                        data: [82, 79, 70, 65, 62]
+                    },
+                    stallion: {
+                        labels: ['キズナ', 'スクリーンヒーロー', 'ゴールドシップ', 'ハーツクライ'],
+                        data: [95, 80, 78, 75]
+                    }
+                },
+                turf2600: {
+                    jockey: {
+                        labels: ['丹内祐次', '田辺裕信', '菱田祐二', '石橋脩', '柴田善臣'],
+                        data: [80, 77, 72, 68, 60]
+                    },
+                    stallion: {
+                        labels: ['ゴールドシップ', 'オルフェーヴル', 'キズナ', 'ハービンジャー'],
+                        data: [90, 88, 82, 75]
+                    }
+                },
+                dirt1150: {
+                    jockey: {
+                        labels: ['永島まな', '戸崎圭太', '田辺裕信', '松本大輝', '菅原明良', '角田大和'],
+                        data: [75, 88, 85, 60, 58, 55]
+                    },
+                    stallion: {
+                        labels: ['ヘニーヒューズ', 'ロードカナロア', 'サウスヴィグラス', 'アジアエクスプレス'],
+                        data: [90, 85, 82, 78]
+                    }
+                },
+                dirt1700: {
+                    jockey: {
+                        labels: ['田辺裕信', '菱田祐二', '菊沢一樹', '戸崎圭太', '吉田隼人'],
+                        data: [88, 80, 77, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['シニスターミニスター', 'エスケンデレヤ', 'ヘニーヒューズ', 'キングカメハメハ'],
+                        data: [92, 85, 80, 75]
+                    }
+                },
+                dirt2400: {
+                    jockey: {
+                        labels: ['菱田祐二', '加藤祥太', '田辺裕信', '戸崎圭太'], // Added more for illustrative purpose
+                        data: [80, 75, 70, 65]
+                    },
+                    stallion: {
+                        labels: ['クロフネ', 'ネオユニヴァース', 'パイロ', 'ドレフォン'], // Added more for illustrative purpose
+                        data: [85, 80, 75, 70]
+                    }
+                }
+            };
+
+            function createBarChart(ctxId, labels, data, title) {
+                const ctx = document.getElementById(ctxId);
+                // Check if a chart instance already exists on this canvas and destroy it
+                const existingChart = Chart.getChart(ctxId);
+                if (existingChart) {
+                    existingChart.destroy();
+                }
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'パフォーマンススコア (模擬)',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.7)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false // Hide legend as label is in title
+                            },
+                            title: {
+                                display: true,
+                                text: title,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans JP', sans-serif"
+                                },
+                                color: '#333'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100, // Assuming score out of 100
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#555',
+                                    font: { family: "'Noto Sans JP', sans-serif" }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Render Charts on collapsible header click
+            document.querySelectorAll('.collapsible-container').forEach(container => {
+                const header = container.querySelector('.collapsible-header');
+                const content = container.querySelector('.collapsible-content');
+                
+                // Add event listener to header
+                header.addEventListener('click', () => {
+                    const icon = header.querySelector('.toggle-icon');
+                    content.classList.toggle('expanded');
+                    icon.classList.toggle('rotated');
+                    
+                    // Render charts if expanding and not already rendered
+                    const isExpanded = content.classList.contains('expanded');
+                    if (isExpanded) {
+                        const sectionId = header.closest('section').id;
+                        const dataKey = header.getAttribute('data-chart-key'); // Custom attribute to map to chartData
+
+                        if (dataKey && chartData[dataKey]) {
+                            const jockeyChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Jockey`; // e.g., chartTurf1200Jockey
+                            const stallionChartId = `chart${dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}Stallion`; // e.g., chartTurf1200Stallion
+                            
+                            // Check for canvas elements and create charts
+                            if (document.getElementById(jockeyChartId) && chartData[dataKey].jockey) {
+                                createBarChart(jockeyChartId, chartData[dataKey].jockey.labels, chartData[dataKey].jockey.data, `${dataKey.includes('turf') ? '芝' : 'ダート'}${dataKey.replace('turf','').replace('dirt','')} 好相性騎手`);
+                            }
+                            if (document.getElementById(stallionChartId) && chartData[dataKey].stallion) {
+                                createBarChart(stallionChartId, chartData[dataKey].stallion.labels, chartData[dataKey].stallion.data, `${dataKey.includes('turf') ? '芝' : 'ダート'}${dataKey.replace('turf','').replace('dirt','')} 好走種牡馬`);
+                            }
+                        }
+                    }
+                });
+            });
+
+
+            // Smooth scroll for internal navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 10; // Adjust for fixed header
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // Initialize all collapsible sections to be collapsed by default on page load
+            document.querySelectorAll('.collapsible-content').forEach(content => {
+                content.style.maxHeight = '0';
+                content.classList.add('collapsed');
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.classList.remove('rotated');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
